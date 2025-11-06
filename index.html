@@ -143,34 +143,36 @@
           <!-- RSVP FORM -->
           <div class="bg-white rounded-4 p-3 mb-4">
             <h4 class="mb-3">RSVP & Ucapan</h4>
-            <form action="https://script.google.com/macros/s/AKfycbyiQAKOTPyWPS93ny7V4DBATyeWMUAqizKCPPJdGFrQ2TDmBj__-raDTWWyimZxd1TDSw/exec"
-                  method="POST" target="hidden_iframe"
-                  onsubmit="document.getElementById('formResponse').innerHTML='<div class=\'alert alert-success\'>✅ Terima kasih!</div>'; this.reset();">
+            <form id="rsvpForm"
+              action="https://script.google.com/macros/s/AKfycbyiQAKOTPyWPS93ny7V4DBATyeWMUAqizKCPPJdGFrQ2TDmBj__-raDTWWyimZxd1TDSw/exec"
+              method="POST"
+              target="hidden_iframe"
+              onsubmit="handleSubmit(event)">
               
               <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
-                <input type="text" id="nama" name="Nama" required class="form-control">
+                <input id="nama" name="nama" type="text" required class="form-control">
               </div>
 
               <div class="mb-3">
                 <label for="bilangan" class="form-label">Bilangan</label>
-                <select id="bilangan" name="Bilangan" class="form-select" required>
+                <select id="bilangan" name="bilangan" required class="form-select">
                   <option value="">Pilih...</option>
-                  <option>1</option><option>2</option><option>3</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
                 </select>
               </div>
 
               <div class="mb-3">
                 <label for="ucapan" class="form-label">Ucapan</label>
-                <textarea id="ucapan" name="Ucapan" rows="3" class="form-control"></textarea>
+                <textarea id="ucapan" name="ucapan" rows="3" class="form-control"></textarea>
               </div>
 
               <button type="submit" class="btn btn-primary w-100">Hantar</button>
             </form>
 
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-            <div id="formResponse"></div>
-          </div>
 
           <!-- UCAPAN -->
           <div class="bg-white rounded-4 p-3 mb-4">
