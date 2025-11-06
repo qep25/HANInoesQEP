@@ -5,42 +5,86 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Walimatulurus — Farhani & Thaqif</title>
 
-  <!-- Bootstrap & Tailwind -->
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
 
   <style>
-    :root{--card-bg:rgba(255,255,255,0.92)}
-    body { font-family: 'Poppins', sans-serif; background:#f8f7f5; color:#1f2937; scroll-behavior:smooth; }
-    /* Hero - cover image cinematic */
-    .hero{
+    :root { --card-bg: rgba(255,255,255,0.92); }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f7f5;
+      color: #1f2937;
+      scroll-behavior: smooth;
+    }
+
+    /* Hero section */
+    .hero {
       background: url('img/Bg.png') center center / cover no-repeat;
-      height:100vh; display:flex; align-items:center; justify-content:center; position:relative; text-align:center;
-      color:#fff;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      position: relative;
     }
-    .hero::after{
-      content:''; position:absolute; inset:0;
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
       background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.45));
-      z-index:0;
+      z-index: 0;
     }
-    .hero .content{ position:relative; z-index:2; animation:fadeUp .9s ease both; }
-    @keyframes fadeUp{ from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:none} }
+    .hero .content {
+      position: relative;
+      z-index: 2;
+      animation: fadeUp .9s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: none; }
+    }
 
-    .font-pinyon{ font-family:'Pinyon Script', cursive; font-size:4rem; line-height:1; }
-    .overlay-card{ background:var(--card-bg); border-radius:1rem; box-shadow: 0 6px 24px rgba(15,23,42,0.08); }
+    .font-pinyon {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 4rem;
+      line-height: 1;
+    }
 
-    /* transparent button */
-    .btn-transparent{ background:transparent; color:#fff; border:2px solid rgba(255,255,255,0.9); transition:.22s; }
-    .btn-transparent:hover{ background:rgba(255,255,255,0.12); transform:scale(1.03); }
+    .overlay-card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      box-shadow: 0 6px 24px rgba(15,23,42,0.08);
+    }
 
-    /* music control */
-    .music-control{ position:fixed; right:18px; bottom:18px; z-index:9999; }
+    /* Transparent button */
+    .btn-transparent {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.9);
+      transition: .22s;
+    }
+    .btn-transparent:hover {
+      background: rgba(255,255,255,0.12);
+      transform: scale(1.03);
+    }
 
-    /* responsive tweaks */
-    @media (max-width:640px){ .font-pinyon{ font-size:2.6rem } .hero{ padding:2rem } }
+    /* Music control */
+    .music-control {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 9999;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .font-pinyon { font-size: 2.6rem; }
+      .hero { padding: 2rem; }
+    }
   </style>
 </head>
 <body>
@@ -55,101 +99,110 @@
     <button id="musicToggle" class="btn btn-sm btn-outline-dark">⏸ Pause</button>
   </div>
 
-  <!-- HERO -->
+  <!-- HERO SECTION -->
   <section class="hero">
     <div class="content">
-      <h3 class="text-sm uppercase tracking-widest mb-1">Walimatulurus</h3>
+      <h3 class="text-uppercase small mb-1">Walimatulurus</h3>
       <h1 class="font-pinyon mb-1">Farhani & Thaqif</h1>
       <p class="mb-2">2 Mei 2026 • #HANInoesQEP</p>
-      <button onclick="startMusicAndScroll()" class="btn btn-transparent px-5 py-2 rounded-pill">💌 Lihat Jemputan</button>
+      <button onclick="startMusicAndScroll()" class="btn btn-transparent px-4 py-2 rounded-pill">💌 Lihat Jemputan</button>
     </div>
   </section>
 
-  <!-- MAIN -->
-  <main id="main-card" class="container max-w-3xl mx-auto -mt-20 mb-12 px-4">
-    <div class="overlay-card p-6">
+  <!-- MAIN CONTENT -->
+  <main id="main-card" class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10 col-sm-12 position-relative" style="margin-top:-5rem; margin-bottom:3rem;">
+        <div class="overlay-card p-4 p-md-5">
 
-      <!-- Header -->
-      <div class="text-center mb-5">
-        <h2 class="text-3xl text-pink-600">Thaqif & Farhani</h2>
-        <p class="text-muted">Walimatulurus • Sabtu, 2 Mei 2026</p>
-      </div>
+          <!-- Header -->
+          <div class="text-center mb-5">
+            <h2 class="fs-2 fw-semibold" style="color:#db2777;">Thaqif & Farhani</h2>
+            <p class="text-muted">Walimatulurus • Sabtu, 2 Mei 2026</p>
+          </div>
 
-      <!-- Intro -->
-      <div class="bg-white rounded-2xl p-4 mb-4">
-        <p class="text-center fst-italic">Dengan penuh kesyukuran, kami menjemput anda ke majlis walimatulurus kami.</p>
-      </div>
+          <!-- Intro -->
+          <div class="bg-white rounded-4 p-3 mb-4">
+            <p class="text-center fst-italic mb-0">Dengan penuh kesyukuran, kami menjemput anda ke majlis walimatulurus kami.</p>
+          </div>
 
-      <!-- Butiran -->
-      <div class="bg-white rounded-2xl p-4 mb-4">
-        <h4 class="mb-2">Butiran Majlis</h4>
-        <ul class="mb-3 small">
-          <li><strong>Tarikh:</strong> Sabtu, 2 Mei 2026</li>
-          <li><strong>Masa:</strong> 12:00 tengah hari – 4:00 petang</li>
-          <li><strong>Tempat:</strong> Dewan Seri Perdana, Putrajaya</li>
-        </ul>
-        <div class="d-flex gap-2 justify-content-center">
-          <!-- replace links later if you want -->
-          <a href="#" class="btn btn-outline-primary" id="gmapBtn" target="_blank">Google Maps</a>
-          <a href="#" class="btn btn-outline-secondary" id="wazeBtn" target="_blank">Waze</a>
+          <!-- Butiran -->
+          <div class="bg-white rounded-4 p-3 mb-4">
+            <h4 class="mb-2">Butiran Majlis</h4>
+            <ul class="mb-3 small list-unstyled">
+              <li><strong>Tarikh:</strong> Sabtu, 2 Mei 2026</li>
+              <li><strong>Masa:</strong> 12:00 tengah hari – 4:00 petang</li>
+              <li><strong>Tempat:</strong> Dewan Seri Perdana, Putrajaya</li>
+            </ul>
+            <div class="d-flex justify-content-center gap-2 flex-wrap">
+              <a href="#" class="btn btn-outline-primary" id="gmapBtn" target="_blank">Google Maps</a>
+              <a href="#" class="btn btn-outline-secondary" id="wazeBtn" target="_blank">Waze</a>
+            </div>
+          </div>
+
+          <!-- RSVP FORM -->
+          <div class="bg-white rounded-4 p-3 mb-4">
+            <h4 class="mb-3">RSVP & Ucapan</h4>
+            <form action="https://script.google.com/macros/s/AKfycbzmg0tOscNC-UhEtMjrBV_26XbSVoTSl04HYVAp2BxCGTBmguJWgiPYgxkEhqqbXObZWQ/exec"
+                  method="POST" target="hidden_iframe"
+                  onsubmit="document.getElementById('formResponse').innerHTML='<div class=\'alert alert-success\'>✅ Terima kasih!</div>'; this.reset();">
+              
+              <div class="mb-3">
+                <label for="nama" class="form-label">Nama</label>
+                <input type="text" id="nama" name="Nama" required class="form-control">
+              </div>
+
+              <div class="mb-3">
+                <label for="bilangan" class="form-label">Bilangan</label>
+                <select id="bilangan" name="Bilangan" class="form-select" required>
+                  <option value="">Pilih...</option>
+                  <option>1</option><option>2</option><option>3</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="ucapan" class="form-label">Ucapan</label>
+                <textarea id="ucapan" name="Ucapan" rows="3" class="form-control"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100">Hantar</button>
+            </form>
+
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+            <div id="formResponse"></div>
+          </div>
+
+          <!-- UCAPAN -->
+          <div class="bg-white rounded-4 p-3 mb-4">
+            <h4 class="mb-3">Ucapan Daripada Tetamu</h4>
+            <div id="ucapanList" class="small text-dark">
+              <p>Memuatkan ucapan…</p>
+            </div>
+          </div>
+
+          <!-- Salam Kaut -->
+          <div class="bg-white rounded-4 p-3 mb-4 text-center">
+            <h5 class="mb-2">Salam Kaut & Hadiah</h5>
+            <p class="small mb-1"><strong>Bank Islam</strong></p>
+            <p class="mb-1">No Akaun: <strong>123456789</strong></p>
+            <p class="mb-1">Atas nama: <strong>Danial Thaqif bin Mohamed Fikri</strong></p>
+            <div class="mt-3 d-flex justify-content-center">
+              <img src="img/QRCodeThaqif.jpg" alt="QR Thaqif" class="rounded shadow" style="width:120px;height:120px;object-fit:cover;">
+            </div>
+          </div>
+
+          <!-- Contact -->
+          <div class="bg-white rounded-4 p-3 text-center">
+            <p>Untuk pertanyaan: <a href="https://wa.me/601123456789" target="_blank" class="text-decoration-none">WhatsApp</a></p>
+          </div>
+
         </div>
       </div>
-
-      <!-- RSVP & FORM (submit via hidden iframe to avoid CORS) -->
-      <div class="bg-white rounded-2xl p-4 mb-4">
-        <h4 class="mb-3">RSVP & Ucapan</h4>
-
-        <!-- FORM: posts to Apps Script endpoint -->
-        <form action="https://script.google.com/macros/s/AKfycbzmg0tOscNC-UhEtMjrBV_26XbSVoTSl04HYVAp2BxCGTBmguJWgiPYgxkEhqqbXObZWQ/exec"
-            method="POST" target="hidden_iframe"
-            onsubmit="document.getElementById('formResponse').innerHTML='<div class=\'alert alert-success\'>✅ Terima kasih!</div>'; this.reset();">
-        <label>Nama</label>
-        <input name="nama" required class="form-control">
-
-        <label>Bilangan</label>
-        <select name="bilangan" class="form-select" required>
-          <option value="">Pilih...</option>
-          <option>1</option><option>2</option><option>3</option>
-        </select>
-
-        <label>Ucapan</label>
-        <textarea name="ucapan" rows="3" class="form-control"></textarea>
-
-        <button type="submit" class="btn btn-primary mt-3 w-100">Hantar</button>
-      </form>
-
-      <iframe name="hidden_iframe" style="display:none;"></iframe>
-      <div id="formResponse"></div>
-
-
-      <!-- Live Ucapan list (fetched via GET to the same endpoint) -->
-      <div class="bg-white rounded-2xl p-4 mb-4">
-        <h4 class="mb-3">Ucapan Daripada Tetamu</h4>
-        <div id="ucapanList" class="small text-dark">
-          <p>Memuatkan ucapan…</p>
-        </div>
-      </div>
-
-      <!-- Salam Kaut -->
-      <div class="bg-white rounded-2xl p-4 mb-4 text-center">
-        <h5 class="mb-2">Salam Kaut & Hadiah</h5>
-        <p class="small mb-1"><strong>Bank Islam</strong></p>
-        <p class="mb-1">No Akaun: <strong>123456789</strong></p>
-        <p class="mb-1">Atas nama: <strong>Danial Thaqif bin Mohamed Fikri</strong></p>
-        <div class="mt-3">
-          <img src="img/QRCodeThaqif.jpg" alt="QR Thaqif" class="rounded shadow" style="width:120px;height:120px;object-fit:cover;align-items: center;">
-        </div>
-      </div>
-
-      <!-- Contact -->
-      <div class="bg-white rounded-2xl p-4 text-center">
-        <p>Untuk pertanyaan: <a href="https://wa.me/601123456789" target="_blank" class="text-decoration-none">WhatsApp</a></p>
-      </div>
-
     </div>
   </main>
 
-  <footer class="text-center py-4 text-muted">
+  <!-- FOOTER -->
+  <footer class="text-center py-3 text-muted">
     Made by Danial Thaqif © 2025
   </footer>
 
@@ -157,74 +210,83 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    /* ========== CONFIG ========== */
     const SCRIPT_ENDPOINT = "https://script.google.com/macros/s/AKfycbzmg0tOscNC-UhEtMjrBV_26XbSVoTSl04HYVAp2BxCGTBmguJWgiPYgxkEhqqbXObZWQ/exec";
-
-    /* ========== MUSIC CONTROL ========== */
     const music = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicToggle');
     let isPlaying = false;
 
     window.addEventListener('load', () => {
-      // Try autoplay — browsers may block; user can press Lihat Jemputan or toggle
-      music.play().then(()=>{ isPlaying = true; musicBtn.textContent = '⏸ Pause'; }).catch(()=>{ isPlaying = false; musicBtn.textContent = '▶ Play'; });
-      loadUcapan(); // load ucapan on page load
+      music.play().then(() => {
+        isPlaying = true;
+        musicBtn.textContent = '⏸ Pause';
+      }).catch(() => {
+        isPlaying = false;
+        musicBtn.textContent = '▶ Play';
+      });
+      loadUcapan();
     });
 
-    function startMusicAndScroll(){
-      if(!isPlaying){ music.play().then(()=>{ isPlaying=true; musicBtn.textContent='⏸ Pause'; }).catch(()=>{}); }
-      document.getElementById('main-card').scrollIntoView({ behavior:'smooth' });
+    function startMusicAndScroll() {
+      if (!isPlaying) {
+        music.play().then(() => {
+          isPlaying = true;
+          musicBtn.textContent = '⏸ Pause';
+        }).catch(() => {});
+      }
+      document.getElementById('main-card').scrollIntoView({ behavior: 'smooth' });
     }
 
     musicBtn.addEventListener('click', () => {
-      if(isPlaying){ music.pause(); musicBtn.textContent='▶ Play'; }
-      else { music.play().then(()=>{ musicBtn.textContent='⏸ Pause'; }).catch(()=>{}); }
+      if (isPlaying) {
+        music.pause();
+        musicBtn.textContent = '▶ Play';
+      } else {
+        music.play().then(() => {
+          musicBtn.textContent = '⏸ Pause';
+        }).catch(() => {});
+      }
       isPlaying = !isPlaying;
     });
 
-    /* ========== UCAPAN (GET) ========== */
-    async function loadUcapan(){
+    async function loadUcapan() {
       const list = document.getElementById('ucapanList');
       list.innerHTML = '<p>Memuatkan ucapan…</p>';
       try {
-        const res = await fetch(SCRIPT_ENDPOINT);
+        const res = await fetch(SCRIPT_ENDPOINT, { cache: "no-store" });
         const data = await res.json();
-        if(!data || !data.length){ list.innerHTML = '<p>Tiada ucapan lagi.</p>'; return; }
-
-        // format: ucapan then name then exp line
-        list.innerHTML = data.map(item=>{
-          const u = (item.ucapan && item.ucapan !== '-') ? item.ucapan : '-';
-          const n = item.nama || '-';
-          return `<div class="border-bottom pb-2 mb-2">
-                    <p class="mb-1"><em>${escapeHtml(u)}</em></p>
-                    <p class="mb-0 small fw-semibold">— ${escapeHtml(n)}</p>
-                  </div>`;
-        }).join('');
-      } catch(err){
+        if (!data || !data.length) {
+          list.innerHTML = '<p>Tiada ucapan lagi.</p>';
+          return;
+        }
+        list.innerHTML = data.map(item => `
+          <div class="border-bottom pb-2 mb-2">
+            <p class="mb-1"><em>${escapeHtml(item.ucapan || '-')}</em></p>
+            <p class="mb-0 small fw-semibold">— ${escapeHtml(item.nama || '-')}</p>
+          </div>
+        `).join('');
+      } catch (err) {
         console.error('Load ucapan error', err);
         list.innerHTML = '<p>Gagal memuatkan ucapan.</p>';
       }
     }
 
-    // Escape HTML to avoid XSS
-    function escapeHtml(s){
-      if(!s) return '';
-      return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
+    function escapeHtml(s) {
+      if (!s) return '';
+      return s.replaceAll('&','&amp;')
+              .replaceAll('<','&lt;')
+              .replaceAll('>','&gt;')
+              .replaceAll('"','&quot;')
+              .replaceAll("'",'&#039;');
     }
 
-    // Refresh ucapan when iframe (form) loads (submission completed)
     document.getElementById('hidden_iframe').addEventListener('load', function(){
-      // small delay to ensure sheet updated
       setTimeout(loadUcapan, 800);
     });
 
-    /* auto refresh every 20s to show new ucapan */
     setInterval(loadUcapan, 20000);
 
-    /* ========== OPTIONAL: user can change these later ========== */
     document.getElementById('gmapBtn').href = 'https://www.google.com/maps/place/Dewan+Seri+Perdana,+Putrajaya';
     document.getElementById('wazeBtn').href = 'https://waze.com/ul?ll=2.9266,101.6951&navigate=yes';
-
   </script>
 </body>
 </html>
