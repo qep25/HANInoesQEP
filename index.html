@@ -171,6 +171,7 @@
 
               <button type="submit" class="btn btn-primary w-100">Hantar</button>
             </form>
+            <div id="formResponse" class="mt-3"></div>
 
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
@@ -295,8 +296,10 @@
         body: new FormData(form),
         mode: "no-cors"
       }).then(() => {
-        document.getElementById('formResponse').innerHTML =
-          '<div class="alert alert-success mt-3">✅ Terima kasih!</div>';
+        const resBox = document.getElementById('formResponse');
+        resBox.innerHTML = '<div class="alert alert-success mt-3">✅ Terima kasih!</div>';
+        setTimeout(() => resBox.innerHTML = '', 5000);
+
         form.reset();
 
         // Reload ucapan after short delay
@@ -304,11 +307,11 @@
       }).catch(err => {
         console.error('Submit error', err);
         document.getElementById('formResponse').innerHTML =
-          '<div class="alert alert-danger mt-3">❌ Ralat menghantar borang.</div>';
+          '<div class="alert alert-danger mt-3">❌ Tidak Dapat Menghantar (ERROR).</div>';
       });
     }
 
-    setInterval(loadUcapan, 60000);
+    setInterval(loadUcapan, 30000);
 
     document.getElementById('gmapBtn').href = 'https://www.google.com/maps/place/Dewan+Seri+Perdana,+Putrajaya';
     document.getElementById('wazeBtn').href = 'https://waze.com/ul?ll=2.9266,101.6951&navigate=yes';
