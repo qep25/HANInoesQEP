@@ -167,7 +167,7 @@
               <li><strong>Masa:</strong> 12:00 tengah hari – 4:00 petang</li>
               <li><strong>Tempat:</strong> Dewan Seri Perdana, Putrajaya</li>
             </ul>
-            <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <div id="lokasi" class="d-flex justify-content-center gap-2 flex-wrap">
               <a href="#" class="btn btn-outline-primary" id="gmapBtn" target="_blank">Google Maps</a>
               <a href="#" class="btn btn-outline-secondary" id="wazeBtn" target="_blank">Waze</a>
             </div>
@@ -175,7 +175,7 @@
 
           <!-- RSVP FORM -->
           <div class="bg-white rounded-4 p-3 mb-4">
-            <h4 class="mb-3">RSVP & Ucapan</h4>
+            <h4 id="rsvp" class="mb-3">RSVP & Ucapan</h4>
             <form id="rsvpForm"
               action="https://script.google.com/macros/s/AKfycbyiQAKOTPyWPS93ny7V4DBATyeWMUAqizKCPPJdGFrQ2TDmBj__-raDTWWyimZxd1TDSw/exec"
               method="POST"
@@ -210,7 +210,7 @@
 
           <!-- UCAPAN -->
           <div class="bg-white rounded-4 p-3 mb-4" id="ucapanListContainer">
-            <h4 class="mb-3">Ucapan Daripada Tetamu</h4>
+            <h4 id="ucapan" class="mb-3">Ucapan Daripada Tetamu</h4>
             <div id="ucapanList" class="small text-dark">
               <p>Memuatkan ucapan…</p>
             </div>
@@ -218,7 +218,7 @@
 
           <!-- Salam Kaut -->
           <div class="bg-white rounded-4 p-3 mb-4 text-center">
-            <h5 class="mb-2">Salam Kaut & Hadiah</h5>
+            <h5 id="salamKaut" class="mb-2">Salam Kaut & Hadiah</h5>
             <p class="small mb-1"><strong>Bank Islam</strong></p>
             <p class="mb-1">No Akaun: <strong>123456789</strong></p>
             <p class="mb-1">Atas nama: <strong>Danial Thaqif bin Mohamed Fikri</strong></p>
@@ -247,14 +247,17 @@
     <a href="#main-card" class="text-center small fw-medium">
       <div>💒</div><span>Utama</span>
     </a>
-    <a href="#rsvpForm" class="text-center small fw-medium">
+    <a href="#lokasi" class="text-center small fw-medium">
+      <div>📍</div><span>Lokasi</span>
+    </a>
+    <a href="#rsvp" class="text-center small fw-medium">
       <div>📝</div><span>RSVP</span>
     </a>
-    <a href="#ucapanListContainer" class="text-center small fw-medium">
+    <a href="#ucapan" class="text-center small fw-medium">
       <div>💬</div><span>Ucapan</span>
     </a>
-    <a href="#gmapBtn" class="text-center small fw-medium">
-      <div>📍</div><span>Lokasi</span>
+    <a href="#salamKaut" class="text-center small fw-medium">
+      <div>💬</div><span>Salam Kaut</span>
     </a>
   </nav>
 
@@ -380,9 +383,10 @@
     function highlightCurrentSection() {
       const sections = [
         { id: 'main-card', link: navLinks[0] },
-        { id: 'rsvpForm', link: navLinks[1] },
-        { id: 'ucapanListContainer', link: navLinks[2] },
-        { id: 'gmapBtn', link: navLinks[3] }
+        { id: 'lokasi', link: navLinks[1] },
+        { id: 'rsvp', link: navLinks[2] },
+        { id: 'ucapan', link: navLinks[3] },
+        { id: 'salamKaut', link: navLinks[4] }
       ];
 
       let scrollPos = window.scrollY + window.innerHeight / 2;
