@@ -80,10 +80,43 @@
       z-index: 9999;
     }
 
-    /* Responsive adjustments */
+    /* === Bottom Nav (Frosted Style) === */
+    #bottomNav {
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.7);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+      z-index: 9998;
+    }
+
+    #bottomNav a {
+      flex: 1;
+      padding: 6px 0;
+      color: #1f2937;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+    #bottomNav a:hover {
+      background: rgba(255, 255, 255, 0.3);
+      color: #db2777;
+      transform: scale(1.05);
+    }
+    #bottomNav a.active {
+      color: #f6b4c2;
+      font-weight: 600;
+      transform: scale(1.1);
+    }
+    #bottomNav a span {
+      display: block;
+      font-size: 0.75rem;
+    }
+
     @media (max-width: 768px) {
       .font-pinyon { font-size: 2.6rem; }
       .hero { padding: 2rem; }
+      #bottomNav a span { font-size: 0.7rem; }
     }
   </style>
 </head>
@@ -112,7 +145,7 @@
   <!-- MAIN CONTENT -->
   <main id="main-card" class="container position-relative">
     <div class="row justify-content-center">
-      <div class="col-lg-8 col-md-10 col-sm-12 position-relative" style="margin-top:-5rem; margin-bottom:3rem;">
+      <div class="col-lg-8 col-md-10 col-sm-12 position-relative" style="margin-bottom:3rem;">
         <div class="overlay-card p-4 p-md-5">
 
           <!-- Header -->
@@ -172,11 +205,11 @@
               <button type="submit" class="btn btn-primary w-100">Hantar</button>
             </form>
             <div id="formResponse" class="mt-3"></div>
-
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+          </div>
 
           <!-- UCAPAN -->
-          <div class="bg-white rounded-4 p-3 mb-4">
+          <div class="bg-white rounded-4 p-3 mb-4" id="ucapanListContainer">
             <h4 class="mb-3">Ucapan Daripada Tetamu</h4>
             <div id="ucapanList" class="small text-dark">
               <p>Memuatkan ucapan…</p>
@@ -209,6 +242,22 @@
     Made by Danial Thaqif © 2025
   </footer>
 
+  <!-- BOTTOM NAVBAR -->
+  <nav id="bottomNav" class="fixed-bottom d-flex justify-content-around py-2">
+    <a href="#main-card" class="text-center small fw-medium">
+      <div>💒</div><span>Utama</span>
+    </a>
+    <a href="#rsvpForm" class="text-center small fw-medium">
+      <div>📝</div><span>RSVP</span>
+    </a>
+    <a href="#ucapanListContainer" class="text-center small fw-medium">
+      <div>💬</div><span>Ucapan</span>
+    </a>
+    <a href="#gmapBtn" class="text-center small fw-medium">
+      <div>📍</div><span>Lokasi</span>
+    </a>
+  </nav>
+
   <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -229,24 +278,12 @@
       loadUcapan();
     });
 
-    function startMusicAndScroll() {
-      if (!isPlaying) {
-        music.play().then(() => {
-          isPlaying = true;
-          musicBtn.textContent = '⏸ Pause';
-        }).catch(() => {});
-      }
-      document.getElementById('main-card').scrollIntoView({ behavior: 'smooth' });
-    }
-
     musicBtn.addEventListener('click', () => {
       if (isPlaying) {
         music.pause();
         musicBtn.textContent = '▶ Play';
       } else {
-        music.play().then(() => {
-          musicBtn.textContent = '⏸ Pause';
-        }).catch(() => {});
+        music.play().then(() => musicBtn.textContent = '⏸ Pause');
       }
       isPlaying = !isPlaying;
     });
@@ -267,8 +304,7 @@
             <p class="mb-0 small fw-semibold">— ${escapeHtml(item.nama || '-')}</p>
           </div>
         `).join('');
-      } catch (err) {
-        console.error('Load ucapan error', err);
+      } catch {
         list.innerHTML = '<p>Gagal memuatkan ucapan.</p>';
       }
     }
@@ -289,8 +325,6 @@
     function handleSubmit(e) {
       e.preventDefault();
       const form = e.target;
-
-      // Send data using Fetch (to Apps Script)
       fetch(form.action, {
         method: "POST",
         body: new FormData(form),
@@ -299,15 +333,68 @@
         const resBox = document.getElementById('formResponse');
         resBox.innerHTML = '<div class="alert alert-success mt-3">✅ Terima kasih!</div>';
         setTimeout(() => resBox.innerHTML = '', 5000);
-
         form.reset();
-
-        // Reload ucapan after short delay
         setTimeout(loadUcapan, 1000);
-      }).catch(err => {
-        console.error('Submit error', err);
+      }).catch(() => {
         document.getElementById('formResponse').innerHTML =
           '<div class="alert alert-danger mt-3">❌ Tidak Dapat Menghantar (ERROR).</div>';
+      });
+    }
+
+    // === Bottom Navigation Visibility & Active Highlight ===
+    const bottomNav = document.getElementById('bottomNav');
+    const navLinks = bottomNav.querySelectorAll('a');
+    let navVisible = false;
+
+    function showBottomNav() {
+      bottomNav.style.transform = 'translateY(0)';
+      navVisible = true;
+    }
+
+    function hideBottomNav() {
+      bottomNav.style.transform = 'translateY(100%)';
+      navVisible = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const heroHeight = window.innerHeight * 0.4;
+
+      if (scrollY > heroHeight && !navVisible) showBottomNav();
+      else if (scrollY <= heroHeight && navVisible) hideBottomNav();
+
+      highlightCurrentSection();
+    });
+
+    function startMusicAndScroll() {
+      if (!isPlaying) {
+        music.play().then(() => {
+          isPlaying = true;
+          musicBtn.textContent = '⏸ Pause';
+        });
+      }
+      document.getElementById('main-card').scrollIntoView({ behavior: 'smooth' });
+      showBottomNav();
+    }
+
+    function highlightCurrentSection() {
+      const sections = [
+        { id: 'main-card', link: navLinks[0] },
+        { id: 'rsvpForm', link: navLinks[1] },
+        { id: 'ucapanListContainer', link: navLinks[2] },
+        { id: 'gmapBtn', link: navLinks[3] }
+      ];
+
+      let scrollPos = window.scrollY + window.innerHeight / 2;
+      sections.forEach(({ id, link }) => {
+        const section = document.getElementById(id);
+        if (!section) return;
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        if (scrollPos >= top && scrollPos < top + height) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          link.classList.add('active');
+        }
       });
     }
 
@@ -315,7 +402,6 @@
 
     document.getElementById('gmapBtn').href = 'https://www.google.com/maps/place/Dewan+Seri+Perdana,+Putrajaya';
     document.getElementById('wazeBtn').href = 'https://waze.com/ul?ll=2.9266,101.6951&navigate=yes';
-    
   </script>
 </body>
 </html>
