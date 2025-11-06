@@ -118,6 +118,31 @@
       .hero { padding: 2rem; }
       #bottomNav a span { font-size: 0.7rem; }
     }
+
+    #ucapanList {
+      max-height: 250px; /* adjust height if needed */
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    #ucapanList::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    #ucapanList::-webkit-scrollbar-thumb {
+      background-color: #f6b4c2;
+      border-radius: 4px;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
   </style>
 </head>
 <body>
@@ -353,7 +378,7 @@
           return;
         }
 
-        // ✅ Filter only valid ucapan (not empty or '-')
+        // ✅ Filter valid ucapan only (not empty or "-")
         const validUcapan = data.filter(item =>
           item.ucapan && item.ucapan.trim() !== '-' && item.ucapan.trim() !== ''
         );
@@ -363,18 +388,25 @@
           return;
         }
 
-        // ✅ Display valid ucapan only
-        list.innerHTML = validUcapan.map(item => `
-          <div class="border-bottom pb-2 mb-2">
+        // ✅ Reverse order (newest first) & show only latest 10
+        const latestTen = validUcapan.reverse().slice(0, 10);
+
+        // ✅ Display formatted list
+        list.innerHTML = latestTen.map(item => `
+          <div class="border-bottom pb-2 mb-2 fade-in">
             <p class="mb-1"><em>${escapeHtml(item.ucapan)}</em></p>
             <p class="mb-0 small fw-semibold text-muted">— ${escapeHtml(item.nama || '-')}</p>
           </div>
         `).join('');
+        list.scrollTop = 0;
+
+
       } catch (err) {
         console.error('Load ucapan error', err);
         list.innerHTML = '<p>Gagal memuatkan ucapan.</p>';
       }
     }
+
 
 
     function escapeHtml(s) {
