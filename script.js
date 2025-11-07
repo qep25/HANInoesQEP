@@ -10,9 +10,9 @@ window.addEventListener('load', async () => {
     music.volume = 0; // start silent
     await music.play();
     isPlaying = true;
-    musicBtn.textContent = '⏸';
+    musicBtn.textContent = <i class="fa-solid fa-pause" style="color: #ffffffff;"></i>;
   } catch (err) {
-    musicBtn.textContent = '▶';
+    musicBtn.textContent = <i class="fa-solid fa-play" style="color: #ffffffff;"></i>;
   }
   loadUcapan();
 });
@@ -22,11 +22,11 @@ musicBtn.addEventListener('click', () => {
   hasInteracted = true;
   if (isPlaying) {
     music.pause();
-    musicBtn.textContent = '▶';
+    musicBtn.textContent = <i class="fa-solid fa-play" style="color: #ffffffff;"></i>;
   } else {
     music.muted = false;
     fadeInMusic();
-    musicBtn.textContent = '⏸';
+    musicBtn.textContent = <i class="fa-solid fa-pause" style="color: #ffffffff;"></i>;
   }
   isPlaying = !isPlaying;
 });
@@ -53,7 +53,7 @@ function startMusicAndScroll() {
   if (!isPlaying) {
     fadeInMusic();
     isPlaying = true;
-    musicBtn.textContent = '⏸';
+    musicBtn.textContent = <i class="fa-solid fa-pause" style="color: #ffffffff;"></i>;
   }
   enableScroll(); // ✅ Allow scrolling now
   document.getElementById('main-card').scrollIntoView({ behavior: 'smooth' });
