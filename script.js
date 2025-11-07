@@ -6,14 +6,14 @@ let hasInteracted = false;
 
 // Try to start muted on load (allowed by browsers)
 window.addEventListener('load', async () => {
-  try {
-    music.volume = 0; // start silent
-    await music.play();
-    isPlaying = true;
-    musicBtn.textContent = '❚❚';
-  } catch (err) {
-    musicBtn.textContent = '▶';
-  }
+//   try {
+//     music.volume = 0; // start silent
+//     await music.play();
+//     isPlaying = true;
+//     musicBtn.textContent = '❚❚';
+//   } catch (err) {
+//     musicBtn.textContent = '▶';
+//   }
   loadUcapan();
 });
 
