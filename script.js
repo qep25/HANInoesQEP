@@ -1,42 +1,88 @@
 /***Lagu ***/
-const SCRIPT_ENDPOINT = "https://script.google.com/macros/s/AKfycbx2IDA-6RXkLB8wu5OXi7m9j1GoZdXfjFBeZnYmHFx_MbtarnLJwEN54p8SRG2O7K4PlA/exec";
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicToggle');
 let isPlaying = false;
+let hasInteracted = false;
 
-window.addEventListener('load', () => {
-    music.play().then(() => {
+// Try to start muted on load (allowed by browsers)
+window.addEventListener('load', async () => {
+  try {
+    music.volume = 0; // start silent
+    await music.play();
     isPlaying = true;
-    musicBtn.textContent = '⏸ Pause';
-    }).catch(() => {
-    isPlaying = false;
-    musicBtn.textContent = '▶ Play';
-    });
-    loadUcapan();
+    musicBtn.textContent = '⏸';
+  } catch (err) {
+    musicBtn.textContent = '▶';
+  }
+  loadUcapan();
 });
 
+// Toggle button
 musicBtn.addEventListener('click', () => {
-    if (isPlaying) {
+  hasInteracted = true;
+  if (isPlaying) {
     music.pause();
-    musicBtn.textContent = '▶ Play';
-    } else {
-    music.play().then(() => musicBtn.textContent = '⏸ Pause');
-    }
-    isPlaying = !isPlaying;
+    musicBtn.textContent = '▶';
+  } else {
+    music.muted = false;
+    fadeInMusic();
+    musicBtn.textContent = '⏸';
+  }
+  isPlaying = !isPlaying;
 });
 
-function startMusicAndScroll() {
-    if (!isPlaying) {
-    music.play().then(() => {
-        isPlaying = true;
-        musicBtn.textContent = '⏸ Pause';
-    });
+// Function: fade in music volume smoothly
+function fadeInMusic() {
+  music.muted = false;
+  music.volume = 0;
+  const fadeDuration = 3000; // 3 seconds
+  const step = 0.05; // smooth increments
+  const interval = setInterval(() => {
+    if (music.volume < 1) {
+      music.volume = Math.min(1, music.volume + step);
+    } else {
+      clearInterval(interval);
     }
-    document.getElementById('main-card').scrollIntoView({ behavior: 'smooth' });
-    showBottomNav();
+  }, fadeDuration * step);
+  music.play();
 }
 
+// Start music when button clicked
+function startMusicAndScroll() {
+  hasInteracted = true;
+  if (!isPlaying) {
+    fadeInMusic();
+    isPlaying = true;
+    musicBtn.textContent = '⏸';
+  }
+  enableScroll(); // ✅ Allow scrolling now
+  document.getElementById('main-card').scrollIntoView({ behavior: 'smooth' });
+  showBottomNav();
+}
+
+// === Disable scroll until "Lihat Jemputan" clicked ===
+function disableScroll() {
+  document.body.classList.add('no-scroll');
+}
+
+function enableScroll() {
+  document.body.classList.remove('no-scroll');
+}
+
+// ✅ Check scroll position when page loads
+window.addEventListener('load', () => {
+  // If user starts near top (hero section), disable scroll
+  if (window.scrollY < window.innerHeight * 0.5) {
+    disableScroll();
+  } else {
+    enableScroll(); // If refresh mid-page, allow scroll
+  }
+});
+
+
 /*** List Ucapan */
+const SCRIPT_ENDPOINT = "https://script.google.com/macros/s/AKfycbx2IDA-6RXkLB8wu5OXi7m9j1GoZdXfjFBeZnYmHFx_MbtarnLJwEN54p8SRG2O7K4PlA/exec";
+
 async function loadUcapan() {
     const list = document.getElementById('ucapanList');
     list.innerHTML = '<p>Memuatkan ucapan…</p>';
