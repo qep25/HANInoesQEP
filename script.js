@@ -242,6 +242,28 @@ function highlightCurrentSection() {
     });
 }
 
+// === Scale 1080x1920 Canvas ===
+(function() {
+  const CANVAS_W = 1080;
+  const CANVAS_H = 1920;
+  const app = document.getElementById('app');
+  if (!app) return;
+
+  function applyScale() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const scale = Math.min(vw / CANVAS_W, vh / CANVAS_H);
+    const clamped = Math.max(0.35, Math.min(scale, 1.35));
+    app.style.transform = `scale(${clamped})`;
+    const usedH = CANVAS_H * clamped;
+    const topOffset = Math.max(0, (vh - usedH) / 2);
+    app.style.marginTop = `${topOffset}px`;
+  }
+
+  window.addEventListener('resize', applyScale, { passive: true });
+  window.addEventListener('orientationchange', () => setTimeout(applyScale, 100));
+  applyScale();
+})();
 
 
 document.getElementById('gmapBtn').href = 'https://maps.app.goo.gl/XZkmqM8EtiQRAhgU8';

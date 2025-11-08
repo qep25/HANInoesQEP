@@ -197,3 +197,28 @@ body.no-scroll {
   background: rgba(246, 180, 194, 0.55) !important;
   border-color: #f28fa6 !important;
 }
+
+/* === Fixed 1080x1920 Canvas Scaling === */
+:root {
+  --canvas-w: 1080;
+  --canvas-h: 1920;
+}
+
+html, body {
+  height: 100%;
+  background: #eae6e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#app {
+  width: calc(var(--canvas-w) * 1px);
+  height: calc(var(--canvas-h) * 1px);
+  position: relative;
+  background: #f8f7f5;
+  transform-origin: top center;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
