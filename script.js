@@ -66,6 +66,7 @@ function startMusicAndScroll() {
 function disableScroll() { document.body.classList.add('no-scroll'); }
 function enableScroll() { document.body.classList.remove('no-scroll'); }
 
+//cover to video transition
 document.addEventListener('DOMContentLoaded', () => {
   const coverSection = document.getElementById('coverSection');
   const coverButton = document.getElementById('coverButton');
