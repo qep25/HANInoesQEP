@@ -214,8 +214,7 @@ body.no-scroll {
 }
 
 /* === INTRO COVER & VIDEO FIX === */
-.cover-section,
-.video-section {
+.cover-section {
   position: fixed;
   inset: 0;
   width: 100vw;
@@ -228,9 +227,21 @@ body.no-scroll {
   z-index: 99999;
 }
 
+.video-section {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('img/Bg.png') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 99999;
+}
+
 /* Intro image & video styling */
-.cover-image,
-#introVideo {
+.cover-image{
   position: absolute;
   top: 0;
   left: 0;
@@ -239,6 +250,18 @@ body.no-scroll {
   object-fit: contain; /* ✅ full portrait video visible */
   object-position: center;
   background-color: #f6b4c2;
+  z-index: 1;
+}
+
+#introVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain; /* ✅ full portrait video visible */
+  object-position: center;
+  background: url('img/Bg.png') center center / cover no-repeat;
   z-index: 1;
 }
 
