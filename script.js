@@ -193,7 +193,7 @@ hadirRadios.forEach(radio => {
 });
 
 /***Nav Bar ***/
-// === Bottom Navigation Visibility & Active Highlight ===
+// === Bottom Navigation Visibility ===
 const bottomNav = document.getElementById('bottomNav');
 const navLinks = bottomNav.querySelectorAll('a');
 let navVisible = false;
@@ -214,45 +214,7 @@ window.addEventListener('scroll', () => {
 
   if (scrollY > heroHeight && !navVisible) showBottomNav();
   else if (scrollY <= heroHeight && navVisible) hideBottomNav();
-
-  highlightCurrentSection();
 });
-
-
-function highlightCurrentSection() {
-  const sections = [
-    { id: 'intro', link: navLinks[0] },
-    { id: 'butiran', link: navLinks[1] },
-    { id: 'rsvp', link: navLinks[2] },
-    { id: 'ucapanLi', link: navLinks[3] },
-    { id: 'salamKaut', link: navLinks[4] }
-  ];
-
-  const viewportCenter = window.innerHeight / 2;
-
-  // clear all
-  navLinks.forEach(a => a.classList.remove('active'));
-
-  // find first section that contains the viewport center
-  for (const { id, link } of sections) {
-    const el = document.getElementById(id);
-    if (!el) continue;
-    const rect = el.getBoundingClientRect();
-    if (rect.top <= viewportCenter && rect.bottom > viewportCenter) {
-      link.classList.add('active');
-      return;
-    }
-  }
-
-  // fallback: if scrolled to bottom, mark last link active
-  if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 10) {
-    const last = navLinks[navLinks.length - 1];
-    if (last) last.classList.add('active');
-  }
-}
-
-
-
 
 document.getElementById('gmapBtn').href = 'https://maps.app.goo.gl/XZkmqM8EtiQRAhgU8';
 document.getElementById('wazeBtn').href = 'https://ul.waze.com/ul?venue_id=66519070.665321776.636612&overview=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location';
