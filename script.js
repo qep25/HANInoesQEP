@@ -89,40 +89,41 @@ async function loadUcapan() {
     list.innerHTML = '<p>Memuatkan ucapan…</p>';
 
     try {
-      const res = await fetch(SCRIPT_ENDPOINT + "?t=" + Date.now());
-      const data = await res.json();
+        const res = await fetch(SCRIPT_ENDPOINT, { cache: "no-store" });
+        const data = await res.json();
 
-    if (!data || !data.length) {
-        list.innerHTML = '<p>Tiada ucapan lagi.</p>';
-        return;
-    }
+        if (!data || !data.length) {
+            list.innerHTML = '<p>Tiada ucapan lagi.</p>';
+            document.getElementById("totalHadir").textContent = 0;
+            return;
+        }
 
-    // ✅ Filter valid ucapan only (not empty or "-")
-    const validUcapan = data.filter(item =>
-        item.ucapan && item.ucapan.trim() !== '-' && item.ucapan.trim() !== ''
-    );
+        // Filter valid ucapan only
+        const validUcapan = data.filter(item =>
+            item.ucapan && item.ucapan.trim() !== '-' && item.ucapan.trim() !== ''
+        );
 
-    if (validUcapan.length === 0) {
-        list.innerHTML = '<p>Tiada ucapan lagi.</p>';
-        return;
-    }
+        // Display formatted list
+        const latestTen = validUcapan.reverse().slice(0, 10);
+        list.innerHTML = latestTen.map(item => `
+            <div class="border-bottom pb-2 mb-2 fade-in">
+            <p class="mb-1"><em>${escapeHtml(item.ucapan)}</em></p>
+            <p class="mb-0 small fw-semibold text-muted">— ${escapeHtml(item.nama || '-')}</p>
+            </div>
+        `).join('');
+        list.scrollTop = 0;
 
-    // ✅ Reverse order (newest first) & show only latest 10
-    const latestTen = validUcapan.reverse().slice(0, 10);
+        // ✅ Compute total bilangan hadir
+        const total = data
+            .filter(item => item.hadir === "Hadir")
+            .reduce((sum, item) => sum + (parseInt(item.bilangan) || 0), 0);
 
-    // ✅ Display formatted list
-    list.innerHTML = latestTen.map(item => `
-        <div class="border-bottom pb-2 mb-2 fade-in">
-        <p class="mb-1"><em>${escapeHtml(item.ucapan)}</em></p>
-        <p class="mb-0 small fw-semibold text-muted">— ${escapeHtml(item.nama || '-')}</p>
-        </div>
-    `).join('');
-    list.scrollTop = 0;
-
+        document.getElementById("totalHadir").textContent = total;
 
     } catch (err) {
-    console.error('Load ucapan error', err);
-    list.innerHTML = '<p>Gagal memuatkan ucapan.</p>';
+        console.error('Load ucapan error', err);
+        list.innerHTML = '<p>Gagal memuatkan ucapan.</p>';
+        document.getElementById("totalHadir").textContent = 0;
     }
 }
 
