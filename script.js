@@ -89,7 +89,7 @@ async function loadUcapan() {
     list.innerHTML = '<p>Memuatkan ucapan…</p>';
 
     try {
-      const res = await fetch(SCRIPT_ENDPOINT, { cache: "no-store" });
+      const res = await fetch(SCRIPT_ENDPOINT + "?t=" + Date.now());
       const data = await res.json();
 
     if (!data || !data.length) {
