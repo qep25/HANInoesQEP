@@ -89,8 +89,8 @@ async function loadUcapan() {
     list.innerHTML = '<p>Memuatkan ucapan…</p>';
 
     try {
-    const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(SCRIPT_ENDPOINT)}`, { cache: "no-store" });
-    const data = await res.json();
+      const res = await fetch(SCRIPT_ENDPOINT, { cache: "no-store" });
+      const data = await res.json();
 
     if (!data || !data.length) {
         list.innerHTML = '<p>Tiada ucapan lagi.</p>';
